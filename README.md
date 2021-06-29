@@ -30,12 +30,18 @@ We strive for:
 <!-- http://ecotrust-canada.github.io/markdown-toc -->
 
 - [Getting started](#getting-started)
+  * [Getting started as user](#getting-started-as-user)
+  * [Getting started as developer](#getting-started-as-developer)
 - [Makes.nix format](#makesnix-format)
   * [deployContainerImage](#deploycontainerimage)
   * [formatBash](#formatbash)
   * [helloWorld](#helloworld)
 
 # Getting started
+
+Makes is powered by [Nix][NIX].
+It's capable of running in any system as long as it supports Nix.
+We have thoroughly tested it in x86_64-linux machines.
 
 1.  Install Nix as explained
     in the [NixOS Download page][NIX_DOWNLOAD].
@@ -44,58 +50,92 @@ We strive for:
 
     `$ nix-env -if https://fluidattacks.com/makes/install`
 
-1.  Setup Makes in your project:
+Makes targets two kind of users:
+- Final users: People that want to use projects built with Makes.
+- Developers: People who develop projects built with Makes.
 
-    1.  Locate in the root of your project:
+## Getting started as user
 
-        `$ cd /path/to/my/awesome/project`
-    2.  Create a `makes` folder.
+1.  Download the Makes project of your choice.
 
-        `$ mkdir makes`
+1.  `$ cd /path/to/an/awesome/makes/project`
 
-        We will place in this folder
-        all the source code
-        for the [CI/CD][CI_CD] system
-        (build, test, deploy, release, etc).
+1.  Now run makes!
 
-    1.  Create a configuration file named `makes.nix`
-        with the following contents:
+    - List all available commands: `$ m`
 
-        ```nix
-        # /path/to/my/awesome/project/makes.nix
-        {
-          helloWorld = {
-            enable = true;
-            name = "Jane Doe";
-          };
-        }
-        ```
+      ```
+      Outputs list for project: ./
+        .helloWorld
+      ```
 
-        We have tens of [CI/CD][CI_CD] actions
-        that you can include in jour project as simple as this.
+    - Run a command: `$ m .helloWorld`
 
-    1.  Now run makes!
+      ```
+      [INFO] Hello from Makes! Jane Doe.
+      [INFO] You called us with CLI arguments: [ ].
+      ```
 
-        - List all available commands: `$ m`
+    - Run a command with arguments: `$ m .helloWorld 1 2 3`
 
-          ```
-          Outputs list for project: ./
-            .helloWorld
-          ```
+      ```
+      [INFO] Hello from Makes! Jane Doe.
+      [INFO] You called us with CLI arguments: [ 1 2 3 ].
+      ```
 
-        - Run a command: `$ m .helloWorld`
 
-          ```
-          [INFO] Hello from Makes! Jane Doe.
-          [INFO] You called us with CLI arguments: [ ].
-          ```
+## Getting started as developer
 
-        - Run a command with arguments: `$ m .helloWorld 1 2 3`
+1.  Locate in the root of your project:
 
-          ```
-          [INFO] Hello from Makes! Jane Doe.
-          [INFO] You called us with CLI arguments: [ 1 2 3 ].
-          ```
+    `$ cd /path/to/my/awesome/makes/project`
+2.  Create a `makes` folder.
+
+    `$ mkdir makes`
+
+    We will place in this folder
+    all the source code
+    for the [CI/CD][CI_CD] system
+    (build, test, deploy, release, etc).
+
+1.  Create a configuration file named `makes.nix`
+    with the following contents:
+
+    ```nix
+    # /path/to/my/awesome/project/makes.nix
+    {
+      helloWorld = {
+        enable = true;
+        name = "Jane Doe";
+      };
+    }
+    ```
+
+    We have tens of [CI/CD][CI_CD] actions
+    that you can include in jour project as simple as this.
+
+1.  Now run makes!
+
+    - List all available commands: `$ m`
+
+      ```
+      Outputs list for project: ./
+        .helloWorld
+      ```
+
+    - Run a command: `$ m .helloWorld`
+
+      ```
+      [INFO] Hello from Makes! Jane Doe.
+      [INFO] You called us with CLI arguments: [ ].
+      ```
+
+    - Run a command with arguments: `$ m .helloWorld 1 2 3`
+
+      ```
+      [INFO] Hello from Makes! Jane Doe.
+      [INFO] You called us with CLI arguments: [ 1 2 3 ].
+      ```
 
 # Makes.nix format
 
