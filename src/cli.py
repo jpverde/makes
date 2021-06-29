@@ -15,6 +15,7 @@ from typing import (
     Any,
     List,
     Optional,
+    Tuple,
 )
 
 DEBUG: bool = "MAKES_DEBUG" in environ
@@ -32,6 +33,23 @@ def _log(*args: str) -> None:
 
 def _if(condition: Any, value: str) -> List[str]:
     return [value] if condition else []
+
+
+def _run(
+    args: List[str],
+    stdout: bool = False,
+    stderr: bool = False,
+) -> Tuple[int, bytes, bytes]:
+    with subprocess.Popen(
+        args=args,
+        stdout=subprocess.PIPE if stdout else None,
+        stderr=subprocess.PIPE if stderr else None,
+    ) as process:
+        process.wait()
+        out = process.stdout if process.stdout else bytes()
+        err = process.stderr if process.stderr else bytes()
+
+        return process.returncode, out, err
 
 
 def _nix_build(head: str, attr: str, out: str = "") -> List[str]:
@@ -54,20 +72,33 @@ def _get_head_from_file() -> str:
     return abspath(FROM[7:])
 
 
+def _get_head_from_http() -> str:
+    out: str = tempfile.mktemp()
+    code, _, _ = _run(args=[environ["_HEAD_FROM_HTTP"], FROM, out])
+
+    if code == 0:
+        return out
+
+    raise Error(f"Unable to fetch project from: {FROM}")
+
+
 def _get_head() -> str:
     if FROM.startswith("file://"):
         return _get_head_from_file()
+
+    if FROM.startswith("http://") or FROM.startswith("https://"):
+        return _get_head_from_http()
 
     raise Error(f"Unable to load Makes project from: {FROM}")
 
 
 def _get_attrs(head: str) -> List[str]:
     out: str = tempfile.mktemp()
-    process: subprocess.CompletedProcess = subprocess.run(
+    exit_code, _, _ = _run(
         args=_nix_build(head, "config.attrs", out),
-        check=False,
     )
-    if process.returncode == 0:
+
+    if exit_code == 0:
         with open(out) as file:
             return [f".{attr}" for attr in json.load(file)]
 
@@ -107,12 +138,11 @@ def cli(args: List[str]) -> None:
     out: str = join(cwd, f"result{attr}")
     actions_path: str = join(out, "makes-actions.json")
 
-    process: subprocess.CompletedProcess = subprocess.run(
+    exit_code, _, _ = _run(
         args=_nix_build(head, f'config.outputs."{attr[1:]}"', out),
-        check=False,
     )
 
-    if process.returncode == 0:
+    if exit_code == 0:
         if exists(actions_path):
             with open(actions_path) as actions_file:
                 for action in json.load(actions_file):
@@ -123,9 +153,13 @@ def cli(args: List[str]) -> None:
                         )
 
 
-if __name__ == "__main__":
+def main() -> None:
     try:
         cli(sys.argv)
     except Error as err:
         _log(f"[ERROR] {err}")
         sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
