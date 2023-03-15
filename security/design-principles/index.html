@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Design Principles - Makes</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../../favicon.svg">
+                        <link rel="shortcut icon" href="../../favicon.png">
+                <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+                <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Makes</li><li class="chapter-item expanded "><a href="../../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../../architecture/index.html"><strong aria-hidden="true">2.</strong> Architecture</a></li><li class="chapter-item expanded "><a href="../../contributing/index.html"><strong aria-hidden="true">3.</strong> Contributing</a></li><li class="chapter-item expanded "><a href="../../governance/index.html"><strong aria-hidden="true">4.</strong> Governance</a></li><li class="chapter-item expanded affix "><li class="part-title">Security</li><li class="chapter-item expanded "><a href="../../security/index.html"><strong aria-hidden="true">5.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../../security/design-principles/index.html" class="active"><strong aria-hidden="true">6.</strong> Design Principles</a></li><li class="chapter-item expanded "><a href="../../security/assurance/index.html"><strong aria-hidden="true">7.</strong> Software Assurance</a></li><li class="chapter-item expanded "><a href="../../security/slsa/index.html"><strong aria-hidden="true">8.</strong> SLSA</a></li><li class="chapter-item expanded "><a href="../../security/threat-model/index.html"><strong aria-hidden="true">9.</strong> Threat Model</a></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Makes</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        <a href="https://github.com/fluidattacks/makes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                                                                        <a href="https://github.com/fluidattacks/makes/edit/main/docs/src/" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="design-principles"><a class="header" href="#design-principles">Design Principles</a></h1>
+<h2 id="principle-of-least-privilege"><a class="header" href="#principle-of-least-privilege">Principle of Least Privilege</a></h2>
+<ul>
+<li>
+<p>The Makes CLI is a python application that runs in user-space.
+The privileges required are:</p>
+<ul>
+<li>Write access to the <code>${HOME}</code>,
+which is normally owned by the user,
+so no extra privileges
+other than what the user already has are required.</li>
+<li>Creating temporary files/directories,
+which respects the <code>${TMPDIR}</code> environment variable,
+which is a functionality normally available to a user,
+so no extra privileges are required.</li>
+<li>A system with Nix installed.</li>
+<li>(optional) privileges to create Kernel namespaces.</li>
+</ul>
+</li>
+<li>
+<p>The Makes framework is simply a library
+that aids the developer in creating build scripts,
+so no privileges are required,
+the Makes framework is just source code
+that the user can opt-in to use.</p>
+</li>
+<li>
+<p>When containers are built,
+they are build by assembling an OCI-compliant image
+(TAR files per each layer plus a JSON manifest),
+without resorting to privileged daemons like that of Docker.
+They are generated as any other build (hermetic, pure, etc)
+using information from the Nix Store.</p>
+</li>
+</ul>
+<h2 id="principle-of-fail-safe-defaults"><a class="header" href="#principle-of-fail-safe-defaults">Principle of Fail-Safe Defaults</a></h2>
+<ul>
+<li>
+<p>By default, builds are run in a sandbox
+that uses kernel namespaces
+to prevent the build from accessing the network
+and the external file system.</p>
+<p>The user is given the option to opt-out from this behavior,
+but this is enabled by default.</p>
+</li>
+<li>
+<p>Generated files are created inside user-owned folders by default,
+which inherit the security
+that the user has previously defined for the directory.</p>
+<p>An user may opt-out from this behavior by setting environment variables,
+but user-owned folders are selected by default.</p>
+</li>
+<li>
+<p>In the most common configuration,
+the contents of the <code>/nix/store</code>
+are never published to the internet.</p>
+<p>A user may want to share artifacts with other users
+in order to improve performance
+by writing artifacts to a binary cache,
+so that other users can download the artifacts
+if they have already been built by other user,
+but this behavior
+requires configuring a read+write binary cache
+and setting the corresponding access secret.</p>
+<p>A read-only binary cache (<a href="https://cache.nixos.org">https://cache.nixos.org</a>)
+and no write binary cache
+is the default configuration,</p>
+</li>
+</ul>
+<h2 id="principle-of-economy-of-mechanism"><a class="header" href="#principle-of-economy-of-mechanism">Principle of Economy of Mechanism</a></h2>
+<ul>
+<li>The Makes CLI is essentially a wrapper over Nix,
+so the surface is as small as possible (~1000 loc).</li>
+<li>The Makes Framework defines a common set of utilities
+a user can opt-in to use,
+saving the user the work of writing that functionality themselves
+which would require the same amount of code anyway.</li>
+</ul>
+<h2 id="principle-of-complete-mediation"><a class="header" href="#principle-of-complete-mediation">Principle of Complete Mediation</a></h2>
+<h2 id="principle-of-open-design"><a class="header" href="#principle-of-open-design">Principle of Open Design</a></h2>
+<ul>
+<li>Makes is Free and Open Source Software,
+anyone can read its internals:
+https://github.com/fluidattacks/makes</li>
+</ul>
+<h2 id="principle-of-separation-of-privilege"><a class="header" href="#principle-of-separation-of-privilege">Principle of Separation of Privilege</a></h2>
+<h2 id="principle-of-least-common-mechanism"><a class="header" href="#principle-of-least-common-mechanism">Principle of Least Common Mechanism</a></h2>
+<ul>
+<li>In the most common case
+each user of Makes has a personal <code>/nix/store</code>
+and a personal installation of Nix.
+The <code>/nix/store</code> contents are not shared between users by default,
+unless the user configures a read+write binary cache
+and sets the corresponding binary cache secret.</li>
+</ul>
+<h2 id="principle-of-psychological-acceptability"><a class="header" href="#principle-of-psychological-acceptability">Principle of Psychological Acceptability</a></h2>
+<ul>
+<li>The Makes CLI is easy to use.
+Performing an installation using the default values
+yields a sufficiently secure version of the system.
+Users familiar with other build tools would feel at home.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../../security/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../../security/assurance/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../../security/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../../security/assurance/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+                <script type="text/javascript" src="../../mermaid.min.js"></script>
+                <script type="text/javascript" src="../../mermaid-init.js"></script>
+        
+        
+    </body>
+</html>

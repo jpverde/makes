@@ -1,0 +1,356 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Threat Model - Makes</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../../favicon.svg">
+                        <link rel="shortcut icon" href="../../favicon.png">
+                <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+                <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Makes</li><li class="chapter-item expanded "><a href="../../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../../architecture/index.html"><strong aria-hidden="true">2.</strong> Architecture</a></li><li class="chapter-item expanded "><a href="../../contributing/index.html"><strong aria-hidden="true">3.</strong> Contributing</a></li><li class="chapter-item expanded "><a href="../../governance/index.html"><strong aria-hidden="true">4.</strong> Governance</a></li><li class="chapter-item expanded affix "><li class="part-title">Security</li><li class="chapter-item expanded "><a href="../../security/index.html"><strong aria-hidden="true">5.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../../security/design-principles/index.html"><strong aria-hidden="true">6.</strong> Design Principles</a></li><li class="chapter-item expanded "><a href="../../security/assurance/index.html"><strong aria-hidden="true">7.</strong> Software Assurance</a></li><li class="chapter-item expanded "><a href="../../security/slsa/index.html"><strong aria-hidden="true">8.</strong> SLSA</a></li><li class="chapter-item expanded "><a href="../../security/threat-model/index.html" class="active"><strong aria-hidden="true">9.</strong> Threat Model</a></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Makes</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        <a href="https://github.com/fluidattacks/makes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                                                                        <a href="https://github.com/fluidattacks/makes/edit/main/docs/src/" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="threat-model"><a class="header" href="#threat-model">Threat Model</a></h1>
+<h2 id="spoofing"><a class="header" href="#spoofing">Spoofing</a></h2>
+<ul>
+<li>
+<p>A user can mistype the Makes installation command
+and wrongly install a different (potentially malicious) tool.</p>
+<p>Mitigation:</p>
+<ul>
+<li>The installation command is given in plain-text,
+users can copy-paste it to avoid typos.</li>
+</ul>
+</li>
+<li>
+<p>A user can mistype the target project to be built with Makes,
+and end-up building (and potentially running)
+a different (potentially malicious) project.</p>
+<p>Mitigation:</p>
+<ul>
+<li>
+<p>The most common use case
+(running makes on the project in the current working directory)
+has a very convenient syntax: <code>$ m .</code>,
+which is very unlikely to be mistyped.</p>
+</li>
+<li>
+<p>When referencing a project over the internet,
+the user is forced to use a git provider (github/gitlab),
+the owner account (which should be trusted by the user),
+the target repository,
+and a branch, commit or tag.</p>
+<p>By using a commit,
+the user can force the integrity of the downloaded data
+to match what they expect.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="tampering"><a class="header" href="#tampering">Tampering</a></h2>
+<ul>
+<li>
+<p>The Nix Store can be tampered with
+if no good installation measures are taken by the user.</p>
+<p>Mitigation:</p>
+<ul>
+<li>The Nix installation is responsibility of the user,
+but in general,
+a user could bind mount <code>/nix</code> as a read-only file system,
+and make the <code>/nix/store</code> only accessible by root
+and the <code>nixbld</code> group users,
+reducing an attack vector to the physical or local layer,
+which can be further protected
+by the use of frameworks like <a href="https://slsa.dev/">SLSA</a>,
+and full disk encryption using <a href="https://en.wikipedia.org/wiki/LUKS">LUKS</a>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="repudiation"><a class="header" href="#repudiation">Repudiation</a></h2>
+<ul>
+<li>
+<p>In single tenant setups,
+for instance when developers run Makes in their laptops,
+there is nothing to repudiate,
+there is only one user performing builds (the developer).
+However,
+in multi-tenant setups,
+for instance when Makes is run in a shared CI/CD system,
+a user could deny running a build.</p>
+<p>Mitigation:</p>
+<ul>
+<li>Makes produces
+<a href="https://slsa.dev/provenance/v0.2">SLSA Provenance Attestations</a>,
+which identify the builder and the built artifact.</li>
+<li>Most CI/CD systems
+(and particularly the ones supported by Makes)
+offer logs collection,
+so it would be easy to associate a build
+with the identity that triggered it.
+It is responsibility of the users
+to configure such CI/CD systems
+in a secure way and to protect (and backup) the logs.</li>
+</ul>
+</li>
+</ul>
+<h2 id="information-disclosure"><a class="header" href="#information-disclosure">Information Disclosure</a></h2>
+<ul>
+<li>
+<p>Although the <code>/nix/store</code> is individual per user,
+a user may write secrets to it,
+and then those secrets can be published to a binary cache
+that is publicly accessible.</p>
+<p>Examples of this include Nix idioms like:</p>
+<pre><code class="language-nix">[
+  // Nix would load the secrets in plain-text to the `/nix/store`
+  ./file-with-secrets-in-plain-text.txt
+
+  // Nix would load the git repository to the `/nix/store`
+  // This also applies to other builtins.fetch* that could
+  // fetch private information
+  (builtins.fetchGit {
+    // Private repository (with potential intellectual property)
+    url = &quot;git@github.com:company/secrets.git&quot;;
+  })
+]
+</code></pre>
+<p>Mitigation:</p>
+<ul>
+<li>
+<p>Nothing from the <code>/nix/store</code>
+is pushed to a binary cache by default.
+A user would need to configure the cache explicitly,
+and expose the corresponding secret
+in an environment variable.</p>
+</li>
+<li>
+<p>Makes has support for binary caches
+that require a secret for reading and writting,
+so a user may chose to use this instead
+as an extra layer of prevention
+if loading secrets to the <code>/nix/store</code> is mandatory.
+Please see <a href="https://cachix.org/">https://cachix.org/</a> for more information.</p>
+</li>
+<li>
+<p>Makes has utilities for working with secrets in a way
+that they are only copied to the <code>/nix/store</code>
+in encrypted form,
+and then decrypted at runtime,
+where there are safe from disclosure.</p>
+<p>For example:
+<code>secretsForAwsFromEnv</code>,
+<code>secretsForAwsFromGitlab</code>,
+<code>secretsForEnvFromSops</code>,
+<code>secretsForGpgFromEnv</code>,
+<code>secretsForKubernetesConfigFromAws</code>, and
+<code>secretsForTerraformFromEnv</code>.</p>
+<p>However, we don't currently have a way to protect the user
+from using <code>builtins.fetch*</code>.
+If your workflow needs this,
+please avoid pushing artifacts to a public binary cache,
+or use a private binary cache instead.</p>
+</li>
+<li>
+<p>Makes copies the contents of the git repository
+into a trusted control plane,
+and excludes all of the files
+that are not tracked by Git
+from this checkout.
+This means that if the file with secrets is inside the repository,
+but included in the <code>.gitignore</code>
+such that a <code>git fetch</code> of the given remote and revision
+would ignore it,
+Makes would not copy it into the trusted control plane,
+and therefore Nix wouldn't load it into the <code>/nix/store</code>.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="denial-of-service"><a class="header" href="#denial-of-service">Denial of Service</a></h2>
+<h2 id="elevation-of-privileges"><a class="header" href="#elevation-of-privileges">Elevation of Privileges</a></h2>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../../security/slsa/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../../security/slsa/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+                <script type="text/javascript" src="../../mermaid.min.js"></script>
+                <script type="text/javascript" src="../../mermaid-init.js"></script>
+        
+        
+    </body>
+</html>
